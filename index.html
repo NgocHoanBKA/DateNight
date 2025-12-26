@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Night Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #2b0012;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* STORY */
+.story {
+  width: 390px;
+  height: 670px;
+  background: linear-gradient(180deg, #4a001f, #6d002b);
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* POSTER TEXT */
+.poster {
+  position: absolute;
+  inset: 0;
+  padding: 0px 28px 140px;
+  text-align: center;
+}
+
+.poster h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #ffd27d;
+}
+
+.poster h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  margin-bottom: 30px;
+  color: #ffe6b3;
+}
+
+.poster p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 6px 0;
+}
+
+/* COVER */
+.cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #4a001f, #6d002b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 6;
+  cursor: pointer;
+  transition: transform 1.4s ease;
+}
+
+.cover.open {
+  transform: translateY(-100%);
+}
+
+/* OPEN BTN */
+.open-btn {
+  padding: 14px 30px;
+  border-radius: 40px;
+  background: #f3c97a;
+  color: #5a001f;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* NOTE */
+.note {
+  
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.paper {
+  width: 270px;
+  font-family: 'Playfair Display', serif;
+  background: #fff7e6;
+  color: #4a001f;
+  padding: 24px 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.9s ease 0.5s;
+}
+
+.show .paper {
+  opacity: 1;
+  transform: translateY(1);
+}
+
+.paper h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  margin-bottom: 12px;
+  margin-top: 3px;
+}
+
+/* BUTTONS */
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 1px;
+  justify-content: center;
+}
+
+.actions button {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 22px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.actions button:active {
+  transform: scale(0.95);
+}
+
+.schedule {
+  background: #f3c97a;
+  color: #5a001f;
+  font-family: 'Playfair Display', serif;
+}
+
+.accept {
+  background: #c9184a;
+  color: #fff;
+}
+
+/* SCHEDULE */
+.timeline {
+  margin-top: 12px;
+  display: none;
+  font-size: 13px;
+}
+
+/* RESPONSE */
+.response {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #c9184a;
+  display: none;
+}
+
+/* PETALS */
+.petals {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  width: 22px;
+  height: 28px;
+  background: radial-gradient(circle at 30% 30%, #ff8fa3, #c9184a);
+  border-radius: 60% 40% 60% 40%;
+  opacity: 0.85;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(900px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* FOOTER */
+.footer {
+  position: absolute;
+  bottom: 36px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.85;
+}
+</style>
+</head>
+
+<body>
+
+<div class="story" id="story">
+
+  <div class="poster">
+    <h1>An Evening of Love</h1>
+    <h2>Date Night End Of Year</h2>
+    
+  </div>
+
+  <div class="note">
+    <div class="paper" id="paper">
+      <h3>Thiệp mời dành cho em</h3>
+
+      <div class="actions">
+        <button class="schedule" onclick="showSchedule()">Xem lịch trình</button>
+        <button class="accept" onclick="acceptInvite()">Em đồng ý 💖</button>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <p>🕢 19:30 – Anh đón em</p>
+        <p>🍽 20:00 – Ăn tối vui vẻ</p>
+        <p>🎆 21:00 – Đến gần công viên xem pháo hoa</p>
+      </div>
+
+      <div class="response" id="response">
+        Anh biết mà 💖<br>Cảm ơn em đã đến bên anh ✨
+      </div>
+    </div>
+  </div>
+
+  <div class="petals" id="petals"></div>
+
+  <div class="cover" id="cover" onclick="openInvite()">
+    <div class="open-btn">Open Invitation</div>
+  </div>
+
+
+</div>
+
+<script>
+function openInvite() {
+  document.getElementById("cover").classList.add("open");
+  document.getElementById("story").classList.add("show");
+  createPetals();
+}
+
+function showSchedule() {
+  document.getElementById("timeline").style.display = "block";
+}
+
+function acceptInvite() {
+  navigator.vibrate?.(80);
+  document.getElementById("response").style.display = "block";
+}
+
+function createPetals() {
+  const container = document.getElementById("petals");
+  for (let i = 0; i < 18; i++) {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.style.left = Math.random() * 100 + "%";
+    petal.style.animationDuration = 4 + Math.random() * 3 + "s";
+    container.appendChild(petal);
+    setTimeout(() => petal.remove(), 7000);
+  }
+}
+</script>
+
+</body>
+</html>
